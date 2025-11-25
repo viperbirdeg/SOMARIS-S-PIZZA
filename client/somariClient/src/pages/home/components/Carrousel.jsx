@@ -62,7 +62,7 @@ const CarrouselLayout = ({ children }) => {
 };
 
 const Carrousel = () => {
-  const cardst = [
+  const cards = [
   {
     title: "Mars",
     content: "El planeta rojo",
@@ -83,7 +83,7 @@ const Carrousel = () => {
 
   return (
     <CarrouselLayout>
-      {cardst.map((card, i) => (
+      {cards.map((card, i) => (
         <CarrouselCard
           key={i}
           title={card.title}
