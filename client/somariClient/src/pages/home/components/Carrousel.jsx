@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { TiChevronLeftOutline, TiChevronRightOutline } from "react-icons/ti";
 import "../styles/Carrousel.css"; // Ajusta la ruta según tu proyecto
+import pizzaCuadrada from "../../../imagenes/pizzaCuadrada.jpeg";
+import hochoPizza from "../../../imagenes/hochoPizza.jpg"
+import pizzaRedonda2 from "../../../imagenes/pizzaRedonda2.jpg"
 
 const CarrouselCard = ({ title, content, image }) => {
   return (
@@ -64,19 +67,19 @@ const CarrouselLayout = ({ children }) => {
 const Carrousel = () => {
   const cards = [
   {
-    title: "Mars",
-    content: "El planeta rojo",
-    image: "https://images.vexels.com/media/users/3/152536/isolated/preview/401b51c3a9098f12b566121c92009877-mars-planet-icon-by-vexels.png"
+    title: "PIZZA RECTANGULAR",
+    content: "Pizza con orillas rellenas de queso Mozarrella de 24 rebanadas, con posibilidad de convinar hasta 4 de nuestros deliciosos sabores.",
+    image: pizzaCuadrada
   },
   {
-    title: "Uranus",
-    content: "Gigante helado",
-    image: "https://images.vexels.com/media/users/3/152680/isolated/preview/22e162e0d0066ad0881e1ee797574680-uranus-planet-icon-by-vexels.png"
+    title: "Pizza Familiar",
+    content: "Para compartir en familia hasat 2 sabores. Con un total de 12 rebanadas",
+    image: pizzaRedonda2
   },
   {
-    title: "Jupiter",
-    content: "El planeta más grande",
-    image: "https://images.vexels.com/media/users/3/152509/isolated/preview/e058e7f53d319e0628763c70ab7dce14-jupiter-planet-icon-by-vexels.png"
+    title: "HochoPizza",
+    content: "Disfruta de nuestra más reciente creacion. Rellena de queso mozarrella, crujiente y gratinada. Para 2-4 personas.  ",
+    image: hochoPizza
   }
 ];
 
