@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom"
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon, ShoppingCartIcon, UserIcon } from '@heroicons/react/24/outline'
 
+import { useState } from 'react'
+import Drawer from '../../cart/Drawer'
+
 
 const navigation = [
     { name: 'Menu', href: '#', current: false },
@@ -14,10 +17,14 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 /*Carrousel aqui*/
-const NavBar = () => {
+const NavBar = ({ cartOpen, setCartOpen }) => {
     const navigate = useNavigate();
 
-    return (
+    const products = [
+        {},
+    ]
+
+    return <>
         <Disclosure
             as="nav"
             className="relative bg-black after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-white/10"
@@ -62,6 +69,7 @@ const NavBar = () => {
                     <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                         <button
                             type="button"
+                            onClick={() => setCartOpen(true)}
                             className="relative rounded-full p-1 text-gray-400 hover:text-white focus:outline-2 focus:outline-offset-2 focus:outline-indigo-500"
                         >
                             <span className="absolute -inset-1.5" />
@@ -122,7 +130,13 @@ const NavBar = () => {
                 </div>
             </DisclosurePanel>
         </Disclosure>
-    )
+        <Drawer
+            open={cartOpen}
+            setOpen={setCartOpen}
+            products={products}
+        />        
+    
+    </>
 }
 
 export default NavBar;
