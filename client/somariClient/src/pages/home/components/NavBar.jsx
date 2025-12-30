@@ -1,54 +1,53 @@
-import React from 'react'
-import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon, ShoppingCartIcon, UserIcon } from '@heroicons/react/24/outline'
+import React from "react"
+import { useNavigate } from "react-router-dom"
+import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems, } from "@headlessui/react"
+import { Bars3Icon, BellIcon, XMarkIcon, ShoppingCartIcon, UserIcon, } from "@heroicons/react/24/outline"
 
+import { useAuth } from "../../../context/AuthContext"
 
 const navigation = [
-    { name: 'Menu', href: '#', current: false },
-    { name: 'A cerca de ...', href: '#', current: false },
-    { name: 'Contacto', href: '#', current: false },
+    { name: "Menú", href: "#" },
+    { name: "Acerca de", href: "#" },
+    { name: "Contacto", href: "#" },
 ]
 
-function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
-}
-/*Carrousel aqui*/
-const NavBar = () => {
+const NavBar = ({ setCartOpen }) => {
+    const navigate = useNavigate()
+    const { isLoggedIn, logout } = useAuth()
+
     return (
         <Disclosure
             as="nav"
-            className="relative bg-black after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-white/10"
+            className="relative bg-[#212121] after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-white/10"
         >
-            <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="relative flex h-16 items-center justify-between">
+
+                    {/* Botón menú mobile */}
                     <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-                        {/* Mobile menu button*/}
-                        <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-white/5 hover:text-white focus:outline-2 focus:-outline-offset-1 focus:outline-indigo-500">
-                            <span className="absolute -inset-0.5" />
-                            <span className="sr-only">Open main menu</span>
-                            <Bars3Icon aria-hidden="true" className="block size-6 group-data-open:hidden" />
-                            <XMarkIcon aria-hidden="true" className="hidden size-6 group-data-open:block" />
+                        <DisclosureButton className="group inline-flex items-center justify-center rounded-md p-2 text-[#E0E0E0] hover:text-[#8E9A6D] transition">
+                            <Bars3Icon className="h-6 w-6 group-data-open:hidden" />
+                            <XMarkIcon className="hidden h-6 w-6 group-data-open:block" />
                         </DisclosureButton>
                     </div>
+
+                    {/* Logo + navegación */}
                     <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                         <div className="flex shrink-0 items-center">
                             <img
-                                alt="Your Company"
+                                alt="Logo"
                                 src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-                                className="h-8 w-auto"
+                                className="h-9 w-auto"
                             />
                         </div>
-                        <div className="hidden sm:ml-6 sm:block">
-                            <div className="flex space-x-4">
-                                {navigation.map((item) => (
+
+                        <div className="hidden sm:ml-8 sm:block">
+                            <div className="flex space-x-6">
+                                {navigation.map(item => (
                                     <a
                                         key={item.name}
                                         href={item.href}
-                                        aria-current={item.current ? 'page' : undefined}
-                                        className={classNames(
-                                            item.current ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white',
-                                            'rounded-md px-3 py-2 text-sm font-medium',
-                                        )}
+                                        className=" px-1 py-2 text-sm font-medium text-[#E0E0E0] hover:text-white hover:border-b-2 hover:border-[#8E9A6D] transition"
                                     >
                                         {item.name}
                                     </a>
@@ -56,86 +55,115 @@ const NavBar = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                        <button
-                            type="button"
-                            className="relative rounded-full p-1 text-gray-400 hover:text-white focus:outline-2 focus:outline-offset-2 focus:outline-indigo-500"
-                        >
-                            <span className="absolute -inset-1.5" />
-                            <span className="sr-only">Ver carrito</span>
-                            <ShoppingCartIcon aria-hidden="true" className="size-6" />
-                        </button>
-                        <button
-                            type="button"
-                            className="relative rounded-full p-1 text-gray-400 hover:text-white focus:outline-2 focus:outline-offset-2 focus:outline-indigo-500"
-                        >
-                            <span className="absolute -inset-1.5" />
-                            <span className="sr-only">View notifications</span>
-                            <BellIcon aria-hidden="true" className="size-6" />
-                        </button>
 
-                        {/* Profile dropdown */}
-                        <Menu as="div" className="relative ml-3">
-                            <MenuButton className="text-gray-400 hover:text-white relative flex rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
-                                <span className="absolute -inset-1.5" />
-                                <span className="sr-only">Open user menu</span>
-                                <UserIcon aria-hidden="true" className="size-6" />
+                    {/* Iconos derecha */}
+                    <div className="absolute inset-y-0 right-0 flex items-center gap-3 pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+
+                        {isLoggedIn && (
+                            <>
+                                <button
+                                    onClick={() => setCartOpen(true)}
+                                    className="rounded-full p-1 text-[#E0E0E0] hover:text-[#8E9A6D] transition-transform hover:scale-110"
+                                >
+                                    <ShoppingCartIcon className="h-6 w-6" />
+                                </button>
+
+                                <button className="rounded-full p-1 text-[#E0E0E0] hover:text-[#8E9A6D] transition-transform hover:scale-110">
+                                    <BellIcon className="h-6 w-6" />
+                                </button>
+                            </>
+                        )}
+
+                        {/* Menú usuario */}
+                        <Menu as="div" className="relative">
+                            <MenuButton className="rounded-full p-1 text-[#E0E0E0] hover:text-[#8E9A6D] transition-transform hover:scale-110">
+                                <UserIcon className="h-6 w-6" />
                             </MenuButton>
 
                             <MenuItems
                                 transition
-                                className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-gray-800 py-1 outline -outline-offset-1 outline-white/10 transition data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+                                className="absolute right-0 z-20 mt-3 w-52 origin-top-right rounded-xl bg-[#212121] shadow-xl ring-1 ring-black/20 transition data-closed:scale-95 data-closed:opacity-0 data-enter:duration-150 data-enter:ease-out data-leave:duration-100 data-leave:ease-in"
                             >
-                                <MenuItem>
-                                    <a
-                                        href="#"
-                                        className="block px-4 py-2 text-sm text-gray-300 data-focus:bg-white/5 data-focus:outline-hidden"
-                                    >
-                                        Your profile
-                                    </a>
-                                </MenuItem>
-                                <MenuItem>
-                                    <a
-                                        href="#"
-                                        className="block px-4 py-2 text-sm text-gray-300 data-focus:bg-white/5 data-focus:outline-hidden"
-                                    >
-                                        Settings
-                                    </a>
-                                </MenuItem>
-                                <MenuItem>
-                                    <a
-                                        href="#"
-                                        className="block px-4 py-2 text-sm text-gray-300 data-focus:bg-white/5 data-focus:outline-hidden"
-                                    >
-                                        Sign out
-                                    </a>
-                                </MenuItem>
+                                {!isLoggedIn ? (
+                                    <MenuItem>
+                                        <button
+                                            onClick={() => navigate("/login")}
+                                            className="block w-full rounded-lg overflow-hidden px-4 py-2 text-left text-sm text-[#E0E0E0] hover:bg-[#8E9A6D]/20 transition"
+                                        >
+                                            Iniciar sesión
+                                        </button>
+                                    </MenuItem>
+                                ) : (
+                                    <>
+                                        <MenuItem>
+                                            <button
+                                                onClick={() => navigate("/profile")}
+                                                className="block w-full rounded-lg overflow-hidden px-4 py-2 text-left text-sm text-[#E0E0E0] hover:bg-[#8E9A6D]/20 transition"
+                                            >
+                                                ⚙️ Ajustes
+                                            </button>
+                                        </MenuItem>
+
+                                        <div className="my-1 h-px bg-white/10" />
+
+                                        <MenuItem>
+                                            <button
+                                                onClick={logout}
+                                                className="block w-full rounded-lg overflow-hidden px-4 py-2 text-left text-sm text-red-400 hover:bg-[#B71C1C] hover:text-white transition"
+                                            >
+                                                🚪 Cerrar sesión
+                                            </button>
+                                        </MenuItem>
+                                    </>
+                                )}
                             </MenuItems>
                         </Menu>
                     </div>
                 </div>
             </div>
 
-            <DisclosurePanel className="sm:hidden">
-                <div className="space-y-1 px-2 pt-2 pb-3">
-                    {navigation.map((item) => (
+            {/* Menú mobile animado */}
+            <DisclosurePanel
+                transition
+                className="sm:hidden origin-top transition data-closed:scale-y-95 data-closed:opacity-0 data-enter:duration-200 data-enter:ease-out data-leave:duration-150 data-leave:ease-in"
+            >
+                <div className="space-y-2 px-4 pt-4 pb-5 bg-[#212121]">
+                    {navigation.map(item => (
                         <DisclosureButton
                             key={item.name}
                             as="a"
                             href={item.href}
-                            aria-current={item.current ? 'page' : undefined}
-                            className={classNames(
-                                item.current ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white',
-                                'block rounded-md px-3 py-2 text-base font-medium',
-                            )}
+                            className="block rounded-lg px-4 py-3 text-base font-medium text-[#E0E0E0] hover:bg-[#8E9A6D]/20 transition"
                         >
                             {item.name}
                         </DisclosureButton>
                     ))}
+
+                    {isLoggedIn && (
+                        <>
+                            <div className="my-2 h-px bg-white/10" />
+
+                            <DisclosureButton
+                                as="button"
+                                onClick={() => navigate("/profile")}
+                                className="block w-full rounded-lg px-4 py-3 text-left text-[#E0E0E0] hover:bg-[#8E9A6D]/20 transition"
+                            >
+                                ⚙️ Ajustes
+                            </DisclosureButton>
+
+                            <DisclosureButton
+                                as="button"
+                                onClick={logout}
+                                className="block w-full rounded-lg px-4 py-3 text-left text-red-400 hover:bg-[#B71C1C] hover:text-white transition"
+                            >
+                                🚪 Cerrar sesión
+                            </DisclosureButton>
+                        </>
+                    )}
                 </div>
             </DisclosurePanel>
         </Disclosure>
     )
 }
 
-export default NavBar;
+export default NavBar

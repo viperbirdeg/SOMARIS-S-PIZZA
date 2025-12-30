@@ -8,18 +8,18 @@ import pizzaRedonda2 from "../../../imagenes/pizzaRedonda2.jpg"
 const CarrouselCard = ({ title, content, image }) => {
   return (
     <div className="card">
-      <img
-        src={image}
-        alt={title}
-        style={{
-          width: "100%",
-          height: "200px",
-          objectFit: "contain",
-          marginBottom: "1rem",
-        }}
-      />
-      <h2>{title}</h2>
-      <p>{content}</p>
+      <div className="card-image">
+        <img src={image} alt={title} />
+      </div>
+
+      <div className="card-content">
+        <h2>{title}</h2>
+        <p>{content}</p>
+
+        <button className="card-btn">
+          Ver producto
+        </button>
+      </div>
     </div>
   );
 };

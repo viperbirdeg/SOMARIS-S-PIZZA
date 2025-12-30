@@ -1,15 +1,17 @@
 import React from "react"
-import {Route, Routes} from "react-router-dom"
+import {Route, Routes, useOutletContext} from "react-router-dom"
 
 //? Home components
 import HomeLayout from "../pages/home/HomeLayout"
 //import Index from "../pages/homePage/components/Index"
 //import AboutUs from "../pages/homePage/components/AboutUs"
 import Carrousel from "../pages/home/components/Carrousel"
-import Assistant from "../pages/home/components/Assistant"
 import Testimonials from "../pages/home/components/Testimonials"
 
 import UnExist from "../pages/home/components/UnExist"
+
+import Login from "../pages/auth/Login"
+import Register from "../pages/auth/Register"
 
 //? App component
 /*import App from "../App" */
@@ -25,8 +27,6 @@ const Router = () => {
                         <div className="carrousel-wrapper">
                             <Carrousel/>
                         </div>
-                        <Assistant/>
-                        
                     </div>
                 }
                 />
@@ -36,6 +36,8 @@ const Router = () => {
                 <Route path = "aboutUs" element = {<AboutUs/>}/>
                 */}
             </Route>
+            <Route path="/login" element={<Login />} />
+            <Route path="/Register" element={<Register />} />
         </Routes>
     )
 }
