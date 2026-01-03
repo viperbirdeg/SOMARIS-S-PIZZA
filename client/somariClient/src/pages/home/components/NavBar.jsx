@@ -1,7 +1,9 @@
 import React from "react"
-import { useNavigate } from "react-router-dom"
+import { href, useNavigate } from "react-router-dom"
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems, } from "@headlessui/react"
 import { Bars3Icon, BellIcon, XMarkIcon, ShoppingCartIcon, UserIcon, } from "@heroicons/react/24/outline"
+import logo from "../../../imagenes/Logotipo.png";
+import "../styles/navbar.css";
 
 import { useAuth } from "../../../context/AuthContext"
 
@@ -18,7 +20,7 @@ const NavBar = ({ setCartOpen }) => {
     return (
         <Disclosure
             as="nav"
-            className="relative bg-[#212121] after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-white/10"
+            className="relative bg-[#212121] after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-white/10 w-100%"
         >
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="relative flex h-16 items-center justify-between">
@@ -32,13 +34,14 @@ const NavBar = ({ setCartOpen }) => {
                     </div>
 
                     {/* Logo + navegación */}
-                    <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                        <div className="flex shrink-0 items-center">
+                    <div className="nav_som">
+                        <div className="flex shrink-0 items-center log" onClick={() => navigate("/")}>
                             <img
                                 alt="Logo"
-                                src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
+                                src={logo}
                                 className="h-9 w-auto"
                             />
+                            <span className="px-1 font-medium text-[#E0E0E0] hover:text-[#efb20e] hover:border-b-2">SOMARIS PIZZA</span>
                         </div>
 
                         <div className="hidden sm:ml-8 sm:block">
@@ -47,7 +50,7 @@ const NavBar = ({ setCartOpen }) => {
                                     <a
                                         key={item.name}
                                         href={item.href}
-                                        className=" px-1 py-2 text-sm font-medium text-[#E0E0E0] hover:text-white hover:border-b-2 hover:border-[#8E9A6D] transition"
+                                        className=" px-1 py-2 text-sm font-medium text-[#E0E0E0] hover:text-[#efb20e] hover:border-b-2 hover:border-[#8E9A6D] transition"
                                     >
                                         {item.name}
                                     </a>
@@ -76,7 +79,7 @@ const NavBar = ({ setCartOpen }) => {
 
                         {/* Menú usuario */}
                         <Menu as="div" className="relative">
-                            <MenuButton className="rounded-full p-1 text-[#E0E0E0] hover:text-[#8E9A6D] transition-transform hover:scale-110">
+                            <MenuButton className="rounded-full p-1 text-[#E0E0E0] hover:text-[#efb20e] transition-transform hover:scale-110">
                                 <UserIcon className="h-6 w-6" />
                             </MenuButton>
 
@@ -119,6 +122,7 @@ const NavBar = ({ setCartOpen }) => {
                             </MenuItems>
                         </Menu>
                     </div>
+                    
                 </div>
             </div>
 
@@ -162,7 +166,9 @@ const NavBar = ({ setCartOpen }) => {
                     )}
                 </div>
             </DisclosurePanel>
+            
         </Disclosure>
+        
     )
 }
 
