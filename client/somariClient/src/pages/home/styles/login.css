@@ -1,0 +1,12 @@
+.padre{
+    position: relative;
+}
+.hijo{
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+.login{
+    padding-top: 5%;
+}

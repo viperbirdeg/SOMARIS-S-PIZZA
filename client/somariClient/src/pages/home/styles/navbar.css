@@ -1,0 +1,16 @@
+.nav_som{
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.log{
+    cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .log {
+    padding-left: 8%;
+  }
+}
